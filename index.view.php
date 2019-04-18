@@ -11,18 +11,12 @@
 	<h3 class="mt-3">cswManipulation</h3>
 	<br>
 	<table class="table" id="tablewidth">
-		<tr>
-			<td>Hotel</td>
-			<td>230</td>
+		<tr class="thead-dark">
+			<th>Cost category</th>
+			<th>Total cost</th>
 		</tr>
-		<tr>
-			<td>Hotel</td>
-			<td>230</td>
-		</tr>
-		<tr>
-			<td>Hotel</td>
-			<td>230</td>
-		</tr>
+		<?php require 'csvManipulation.php'; ?>
+
 	</table>
 
 	<br>
@@ -36,7 +30,15 @@
 		    </div>
 		    <div class="form-group">
 		    	<input type="submit" value="Upload csv" name="submit" >
-		    </div>  
+		    </div>
+		    <?php
+		    	if (count(scandir('downloads')) ==3){
+					echo "<a href=" . 'downloads/new.csv' . ">Download your report here</a>";					
+				} else {
+					echo "dir is empty. You can not dowload a file, if you did not upload one file first.";
+				}
+
+		    ?>
 	    </div>
 	    
 	</form>
