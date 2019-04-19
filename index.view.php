@@ -7,11 +7,13 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
 
+
+
 <div class="container">
 	<h3 class="mt-3">cswManipulation</h3>
 	<br>
-	<table class="table" id="tablewidth">
-		<tr class="thead-dark">
+	<table  class="table" id="tablewidth">
+		<tr   class="thead-dark">
 			<th>Model</th>
 			<th>Amount sold</th>
 			<th>Price</th>
@@ -27,6 +29,7 @@
 		$hideIf = (count(scandir('downloads')) ==3) ? 'hidden' : '';//if the downloads folder is not empty, then...	echo hidden for some chosen html tags
 		$showIf = (count(scandir('downloads')) !==3) ? 'hidden' : '';//if the dowload folder is empty
 	?>
+	
 	<div class="card p-2 border-success">
 		<div>
 			

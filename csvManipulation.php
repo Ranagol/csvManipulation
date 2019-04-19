@@ -1,8 +1,13 @@
 <?php
+if (count(scandir('uploads')) ==3) {//if the downloads folder is not empty, then...
+	$a = (scandir('uploads'));
+	//var_dump($a);
+	//echo $a[2];
+}
+
+$filename = 'uploads/' . $a[2];
 
 
-
-$filename = 'uploads/aRandomCsvFile.csv';
 
 // The nested array to hold all the arrays
 $the_big_array = []; 
