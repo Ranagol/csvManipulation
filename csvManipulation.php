@@ -1,70 +1,82 @@
 <?php
 
+
+
 $filename = 'uploads/aRandomCsvFile.csv';
 
 // The nested array to hold all the arrays
 $the_big_array = []; 
 
 // Open the file for reading
-if (($h = fopen("{$filename}", "r")) !== FALSE) 
-{
-  // Each line in the file is converted into an individual array that we call $data
-  // The items of the array are comma separated
-  while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
-  {
-    // Each individual array is being pushed into the nested array
-    $the_big_array[] = $data;		
-  }
+if (count(scandir('uploads')) ==3){//IF THERE IS AN UPLOADED FILE IN UPLOADS, THEN OPEN IT, AND WORK WITH IT
+	if (($h = fopen("{$filename}", "r")) !== FALSE) {
+	  // Each line in the file is converted into an individual array that we call $data
+	  // The items of the array are comma separated
+		while (($data = fgetcsv($h, 1000, ",")) !== FALSE){
+		    // Each individual array is being pushed into the nested array
+		    $the_big_array[] = $data;		
+	  	}
+	// Close the file
+	fclose($h);
 
-  // Close the file
-  fclose($h);
-}
+	$report = [];//this will be our newly created array that contains the total too. Total was not in the initially uploaded file, but it will be on the 
+	$report = $the_big_array;
 
-// Displaying the $the_big_array...
-/*echo "<pre>";
-var_dump($the_big_array);
-echo "</pre>";
-*/
+	for ($i=0; $i < count($the_big_array) ; $i++) {//HERE WE ARE DISPLAYING THE .CSV CONTENT TO OUR WEBPAGE
+		echo "<tr>";
+			echo '<td>' . $the_big_array[$i][0] . '</td>';//model
+			echo '<td>' . $the_big_array[$i][1] . '</td>';//amount
+			echo '<td>' . $the_big_array[$i][2] . '</td>';//cost
+			echo '<td>' . $the_big_array[$i][1] * $the_big_array[$i][2] . '</td>';//total
+			$report[$i][3] = $the_big_array[$i][1] * $the_big_array[$i][2];
+		echo "</tr>";
+	}
 
-for ($i=0; $i < count($the_big_array) ; $i++) { 
-	echo "<tr>";
-	echo '<td>' . $the_big_array[$i][0] . '</td>';//key
-	echo '<td>' . $the_big_array[$i][1] * $the_big_array[$i][2] . '</td>';//value
-	echo "</tr>";
-}
+	
+	/*
+	// Displaying the $the_big_array...
+	echo "<pre>";
+	var_dump($the_big_array);
+	echo "</pre>";
+
+	// Displaying the $the_big_array...
+	echo "<pre>";
+	var_dump($report);
+	echo "</pre>";
+	*/
+	
 
 
-/* THIS IS HOW I TRIED TO SOLVE THE DUPLICATE VALUE/KEY ISSUE - UNSUCCESFULLY. 
-$new_array = [];
+	//HERE WE ARE CREATING OUR FINAL REPORT, THAT WILL BE DOWNLOADED
+	// open the file for writing
+	$file = fopen('downloads/report.csv', 'w');
 
-for ($i=0; $i < count($the_big_array) ; $i++) {//here iterating through the big array
-	if (array_key_exists($the_big_array[$i][0], $new_array)) {
-		echo $the_big_array[$i][0] . ' this is the problematic spot found by the IF conditional' . '<br>';//ok, with this it can find the problematic spots. The hotel and the fuel.
-
-		//HERE WE TRY JUST TO ADD TO THE ALREADY EXISTANT VALUES
-			echo  $new_array[$the_big_array[$i][0]] += $the_big_array[1][1] * $the_big_array[1][2]  ;
-			"Adding needs to happen for this key: ";
+	// save each row of the data
+	foreach ($report as $row)
+	{
+	fputcsv($file, $row);
+	}
+	 
+	// Close the file
+	fclose($file);
 	}
 	
-	$new_array[$the_big_array[$i][0]] = $the_big_array[$i][1] * $the_big_array[$i][2];//this is the initial creation
-	echo "Initial creation from the sub-array : " . $i . '. The key is ' . $the_big_array[$i][0] . '. Value is ' . $the_big_array[$i][1] . ' * ' . $the_big_array[$i][2] . '.<br>';
-
+} else {
+	echo "<strong>Please upload your .csv report. Right now, without your file there is nothing to show.</strong>";
 }
-var_dump($new_array);
-*/
 
 
-// open the file for writing
-$file = fopen('downloads/new.csv', 'w');
 
-// save each row of the data
-foreach ($the_big_array as $row)
-{
-fputcsv($file, $row);
-}
- 
-// Close the file
-fclose($file);
+
+
+
+
+
+
+
+
+
+
 
 
 

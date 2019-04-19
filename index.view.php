@@ -12,8 +12,10 @@
 	<br>
 	<table class="table" id="tablewidth">
 		<tr class="thead-dark">
-			<th>Cost category</th>
-			<th>Total cost</th>
+			<th>Model</th>
+			<th>Amount sold</th>
+			<th>Price</th>
+			<th>Total</th>
 		</tr>
 		<?php require 'csvManipulation.php'; ?>
 
@@ -21,31 +23,27 @@
 
 	<br>
 
+	<?php
+		$hideIf = (count(scandir('downloads')) ==3) ? 'hidden' : '';//if the downloads folder is not empty, then...	echo hidden for some chosen html tags
+	?>
+
 	<form action="upload.php" method="post" enctype="multipart/form-data">
-	    <div class="card p-2">
-	    	<div class="form-group">
-		    	
-		    	<label>Select a .csv file to upload:</label>
+	    <div class="card p-2 border-success">
+	    	<div class="form-group" <?php echo $hideIf; ?> >
+		    	<label>Select a .csv file to upload. The .csv file must have three columns (item, amount, price). This app will create a downloadable report that will have the total cost for every item (amount * price = total).</label>
 		    	<input type="file" name="fileToUpload" id="fileToUpload" class="form-control-file">
 		    </div>
-		    <div class="form-group">
-		    	<input type="submit" value="Upload csv" name="submit" >
+		    <div class="form-group" <?php echo $hideIf; ?> >
+		    	<input class="btn btn-outline-success" type="submit" value="Submit!" name="submit" >
 		    </div>
-		    <?php
-		    	if (count(scandir('downloads')) ==3){
-					echo "<a href=" . 'downloads/new.csv' . ">Download your report here</a>";					
-				} else {
-					echo "dir is empty. You can not dowload a file, if you did not upload one file first.";
-				}
-
-		    ?>
-	    </div>
-	    
+		    
+		    <strong><a href="downloads/report.csv">Download your report here</a></strong>
+	    </div> 
 	</form>
 </div>
 
 
-
+<?php  ?>
 
 
 
