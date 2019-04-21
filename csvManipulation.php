@@ -25,7 +25,7 @@ if (count(scandir('uploads')) ==3){//IF THERE IS AN UPLOADED FILE IN UPLOADS, TH
 	fclose($h);
 
 	$report = [];//this will be our newly created array that contains the total too. Total was not in the initially uploaded file, but it will be on the 
-	$report = $the_big_array;
+	$report = $the_big_array;//but, we need to add the total column...
 
 	for ($i=0; $i < count($the_big_array) ; $i++) {//HERE WE ARE DISPLAYING THE .CSV CONTENT TO OUR WEBPAGE
 		echo "<tr>";
@@ -33,26 +33,13 @@ if (count(scandir('uploads')) ==3){//IF THERE IS AN UPLOADED FILE IN UPLOADS, TH
 			echo '<td>' . $the_big_array[$i][1] . '</td>';//amount
 			echo '<td>' . $the_big_array[$i][2] . '</td>';//cost
 			echo '<td>' . $the_big_array[$i][1] * $the_big_array[$i][2] . '</td>';//total
-			$report[$i][3] = $the_big_array[$i][1] * $the_big_array[$i][2];
+			$report[$i][3] = $the_big_array[$i][1] * $the_big_array[$i][2];//here we are adding the total column to our report
 		echo "</tr>";
 	}
 
 	
-	/*
-	// Displaying the $the_big_array...
-	echo "<pre>";
-	var_dump($the_big_array);
-	echo "</pre>";
 
-	// Displaying the $the_big_array...
-	echo "<pre>";
-	var_dump($report);
-	echo "</pre>";
-	*/
-	
-
-
-	//HERE WE ARE CREATING OUR FINAL REPORT, THAT WILL BE DOWNLOADED
+	//HERE WE ARE CREATING OUR FINAL csv REPORT, THAT WILL BE DOWNLOADED
 	// open the file for writing
 	$file = fopen('downloads/report.csv', 'w');
 

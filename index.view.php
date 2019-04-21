@@ -46,10 +46,10 @@
 		</form>
 	
 		<div <?php echo $showIf; ?> >
-			<button><a href="downloads/report.csv">Download your report here</a></button>
+			<button><a href="downloads/report.csv">Download your report here</a></button><!-- this is for downloading the report-->
 			
 	    	<form method="POST" action="index.php">
-		    	<button class="mt-2" name="delete" value="delete">Upload another .csv document</button>
+		    	<button class="mt-2" name="delete" value="delete">Upload another .csv document</button><!-- this is for deleting the files in the uploads and downloads dir-->
 		    </form>
 	    </div>
 	</div>     
